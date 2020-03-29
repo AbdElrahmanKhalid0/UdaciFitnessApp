@@ -1,4 +1,8 @@
-// utils/helpers.js
+import React from 'react';
+import {View} from 'react-native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+
 
 export function isBetween (num, x, y) {
     if (num >= x && num <= y) {
@@ -41,3 +45,100 @@ export function isBetween (num, x, y) {
     const todayUTC = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()))
     return todayUTC.toISOString().split('T')[0]
   }
+
+  export function getMetricMetaInfo (metric){
+    const info = {
+      run:{
+        displayName:'run',
+        max:50,
+        unit:'miles',
+        step:1,
+        type:'steppers',
+        getIcon(){
+          return (
+            <View>
+              <MaterialCommunityIcons
+                name='run'
+                color='black'
+                size={35}
+              />
+            </View>
+          )
+        }
+      },
+      bike:{
+        displayName:'bike',
+        max:100,
+        unit:'miles',
+        step:1,
+        type:'steppers',
+        getIcon(){
+          return (
+            <View>
+              <MaterialCommunityIcons
+                name='bike'
+                color='black'
+                size={35}
+              />
+            </View>
+          )
+        }
+      },
+      swim:{
+        displayName:'swim',
+        max:9900,
+        unit:'meters',
+        step:100,
+        type:'steppers',
+        getIcon(){
+          return (
+            <View>
+              <MaterialCommunityIcons
+                name='swim'
+                color='black'
+                size={35}
+              />
+            </View>
+          )
+        }
+      },
+      sleep:{
+        displayName:'sleep',
+        max:24,
+        unit:'hours',
+        step:1,
+        type:'slider',
+        getIcon(){
+          return (
+            <View>
+              <FontAwesome
+                name='bed'
+                color='black'
+                size={35}
+              />
+            </View>
+          )
+        }
+      },
+      food:{
+        displayName:'food',
+        max:10,
+        unit:'rating',
+        step:1,
+        type:'slider',
+        getIcon(){
+          return (
+            <View>
+              <MaterialCommunityIcons
+                name='food'
+                color='black'
+                size={35}
+              />
+            </View>
+          )
+        }
+      }
+    }
+
+    return metric ? info[metric] : info;
+  };
