@@ -4,6 +4,8 @@ import { getMetricMetaInfo, timeToString } from '../utils/helpers';
 import UdaciStepper from './UdaciStepper';
 import UdaciSlider from './UdaciSlider';
 import DateHeader from './DateHeader';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import TextButton from './TextButton'
 
 const SubmitBtn = ({onPress}) => {
     return (
@@ -66,8 +68,28 @@ export default class AddEntry extends Component{
             food:0
         })
     }
+    reset = () => {
+        const key = timeToString()
+
+        // ----TODO LIST----
+        // update the redux store
+        // navigate the user to home
+        // save the data to the database
+    }
     render(){
         const metaInfo = getMetricMetaInfo();
+
+        if(this.state.alreadyLogged){
+            return(
+                <View>
+                    <FontAwesome name='smile-o' size={100} color='black'/>
+                    <Text>you have already logged information for this day</Text>
+                    <TextButton onPress={this.reset}>
+                        reset
+                    </TextButton>
+                </View>
+            )
+        }
         return (
             <View>
                 <DateHeader date={new Date().toLocaleDateString()}/>
