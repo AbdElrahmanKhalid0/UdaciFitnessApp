@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
-import {View} from 'react-native';
-import { getMetricMetaInfo } from '../utils/helpers';
-import Stepper from './Stepper';
-import Slider from './Slider';
+import {View, Text, TouchableOpacity} from 'react-native';
+import { getMetricMetaInfo, timeToString } from '../utils/helpers';
+import UdaciStepper from './UdaciStepper';
+import UdaciSlider from './UdaciSlider';
 import DateHeader from './DateHeader';
+
+const SubmitBtn = ({onPress}) => {
+    return (
+        <TouchableOpacity onPress={onPress}>
+            <Text>Submit</Text>
+        </TouchableOpacity>
+    )
+}
 
 
 export default class AddEntry extends Component{
@@ -39,6 +47,25 @@ export default class AddEntry extends Component{
             [metric]:value
         });
     }
+    submit = () => {
+        // this gets the now day and sets it as a key to the data
+        const key = timeToString()
+        const entry = this.state
+
+        // ----TODO LIST----
+        // update the redux store
+        // navigate the user to home
+        // clear the notification that wants the user to enter the day data
+        // save the data to the database
+
+        this.setState({
+            run:0,
+            bike:0,
+            swim:0,
+            sleep:0,
+            food:0
+        })
+    }
     render(){
         const metaInfo = getMetricMetaInfo();
         return (
@@ -52,13 +79,13 @@ export default class AddEntry extends Component{
                         <View key={key}>
                             {getIcon()}
                             {type === 'slider' ? (
-                                <Slider
+                                <UdaciSlider
                                     value={value}
                                     onChange={(value) => this.slide(key,value)}
                                     {...rest}
                                 />
                             ) : (
-                                <Stepper
+                                <UdaciStepper
                                     value={value}
                                     onIncrement = {() => this.increment(key)}
                                     onDecrement = {() => this.decrement(key)}
@@ -68,6 +95,7 @@ export default class AddEntry extends Component{
                         </View>
                         )
                 })}
+                <SubmitBtn onPress={this.submit}/>
             </View>
         )
     }

@@ -1,10 +1,10 @@
 import React from 'react';
 import {View,Text} from 'react-native';
 
-export default function Slider () {
+export default function UdaciStepper () {
     return (
         <View>
-            <Text>Slider</Text>
+            <Text>Stepper</Text>
         </View>
     )
 }
