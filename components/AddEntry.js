@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import {View} from 'react-native';
 import { getMetricMetaInfo } from '../utils/helpers';
+import Stepper from './Stepper';
+import Slider from './Slider';
+import DateHeader from './DateHeader';
 
 
 export default class AddEntry extends Component{
@@ -37,9 +40,34 @@ export default class AddEntry extends Component{
         });
     }
     render(){
+        const metaInfo = getMetricMetaInfo();
         return (
             <View>
-                {getMetricMetaInfo('swim').getIcon()}
+                <DateHeader date={new Date().toLocaleDateString()}/>
+                {Object.keys(metaInfo).map(key => {
+                    const { type,getIcon,...rest } = metaInfo[key];
+                    const value = this.state[key];
+                    
+                    return(
+                        <View key={key}>
+                            {getIcon()}
+                            {type === 'slider' ? (
+                                <Slider
+                                    value={value}
+                                    onChange={(value) => this.slide(key,value)}
+                                    {...rest}
+                                />
+                            ) : (
+                                <Stepper
+                                    value={value}
+                                    onIncrement = {() => this.increment(key)}
+                                    onDecrement = {() => this.decrement(key)}
+                                    {...rest}
+                                />
+                            )}
+                        </View>
+                        )
+                })}
             </View>
         )
     }
