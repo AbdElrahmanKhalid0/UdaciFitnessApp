@@ -10,7 +10,7 @@ export const receiveEntries = (entries) => {
 
 export const addEntry = (entry) => {
     return {
-        type: RECEIVE_ENTRIES,
+        type: ADD_ENTRY,
         entry,
     }
 }

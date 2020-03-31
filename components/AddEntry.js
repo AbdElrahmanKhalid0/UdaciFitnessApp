@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
-import { getMetricMetaInfo, timeToString } from '../utils/helpers';
+import { getMetricMetaInfo, timeToString, getDailyReminderMessage } from '../utils/helpers';
 import UdaciStepper from './UdaciStepper';
 import UdaciSlider from './UdaciSlider';
 import DateHeader from './DateHeader';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import TextButton from './TextButton';
 import { submitEntry, removeEntry } from '../utils/api';
+import { connect } from 'react-redux';
+import { addEntry } from '../actions';
 
 const SubmitBtn = ({onPress}) => {
     return (
@@ -17,7 +19,7 @@ const SubmitBtn = ({onPress}) => {
 }
 
 
-export default class AddEntry extends Component{
+class AddEntry extends Component{
     state = {
         run:0,
         bike:0,
@@ -56,12 +58,16 @@ export default class AddEntry extends Component{
         const entry = this.state
 
         // ----TODO LIST----
-        // update the redux store
         // navigate the user to home
         // clear the notification that wants the user to enter the day data
-
+        
         // save the data to the database(AsyncStorage)
         submitEntry({key,entry});
+        
+        // update the redux store
+        this.props.dispatch(addEntry({
+            [key]:entry
+        }))
 
         this.setState({
             run:0,
@@ -75,16 +81,19 @@ export default class AddEntry extends Component{
         const key = timeToString()
 
         // ----TODO LIST----
-        // update the redux store
         // navigate the user to home
+        
+        // update the redux store
+        this.props.dispatch(addEntry({
+            [key]: getDailyReminderMessage()
+        }))
 
         // ramove the data from the database
         removeEntry(key);
     }
     render(){
         const metaInfo = getMetricMetaInfo();
-
-        if(this.state.alreadyLogged){
+        if(this.props.alreadyLogged){
             return(
                 <View>
                     <FontAwesome name='smile-o' size={100} color='black'/>
@@ -127,3 +136,13 @@ export default class AddEntry extends Component{
         )
     }
 }
+
+const mapStateToProps = state => {
+    const key = timeToString();
+    
+    return {
+        alreadyLogged: state[key] && !state[key].today
+    }
+}
+
+export default connect(mapStateToProps)(AddEntry);

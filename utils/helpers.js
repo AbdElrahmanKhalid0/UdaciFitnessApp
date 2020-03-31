@@ -142,3 +142,9 @@ export function isBetween (num, x, y) {
 
     return metric ? info[metric] : info;
   };
+
+  export function getDailyReminderMessage (){
+    return {
+      today:"👋 Don't forget to Log your data today"
+    } 
+  }
