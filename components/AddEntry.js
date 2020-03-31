@@ -5,7 +5,8 @@ import UdaciStepper from './UdaciStepper';
 import UdaciSlider from './UdaciSlider';
 import DateHeader from './DateHeader';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import TextButton from './TextButton'
+import TextButton from './TextButton';
+import { submitEntry, removeEntry } from '../utils/api';
 
 const SubmitBtn = ({onPress}) => {
     return (
@@ -58,7 +59,9 @@ export default class AddEntry extends Component{
         // update the redux store
         // navigate the user to home
         // clear the notification that wants the user to enter the day data
-        // save the data to the database
+
+        // save the data to the database(AsyncStorage)
+        submitEntry({key,entry});
 
         this.setState({
             run:0,
@@ -74,7 +77,9 @@ export default class AddEntry extends Component{
         // ----TODO LIST----
         // update the redux store
         // navigate the user to home
-        // save the data to the database
+
+        // ramove the data from the database
+        removeEntry(key);
     }
     render(){
         const metaInfo = getMetricMetaInfo();
