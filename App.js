@@ -10,8 +10,9 @@ export default function App() {
   return (
     <Provider store={createStore(reducer)}>
       <View style={{flex:1}}>
-        <View style={{height:20}}/> {/* this is for the upper nav bar */}
+        <View style={{height:20}}/>
         <History/>
+        {/* <AddEntry/> */}
       </View>
     </Provider>
   );
