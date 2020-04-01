@@ -13,10 +13,12 @@ export default function MetricCard ({metrics,date}) {
                 const value = metrics[metric];
 
                 return (
-                    <View style={styles.metric}>
+                    <View style={styles.metric} key={`${metric}${date}`}>
                         {getIcon()}
-                        <Text style={{fontSize:18}}>{displayName}</Text>
-                        <Text style={{fontSize:12,color:gray}}>{value} {unit}</Text>
+                        <View style={styles.data}>
+                            <Text style={{fontSize:20}}>{displayName}</Text>
+                            <Text style={{fontSize:12,color:gray}}>{value} {unit}</Text>
+                        </View>
                     </View>
                 )
             })}
@@ -28,5 +30,9 @@ const styles = StyleSheet.create({
     metric:{
         flex:1,
         flexDirection:'row',
+        alignItems:'center',
+    },
+    data:{
+        flexDirection:'column'
     }
 });

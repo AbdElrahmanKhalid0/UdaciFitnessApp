@@ -7,6 +7,7 @@ import { timeToString, getDailyReminderMessage } from '../utils/helpers';
 import UdaciFitnessCalendar from 'udacifitness-calendar-fix';
 import { white } from '../utils/colors';
 import DateHeader from './DateHeader';
+import MetricCard from './MetricCard';
 
 class History extends Component{
     componentDidMount(){
@@ -18,7 +19,6 @@ class History extends Component{
             .then(({entries}) => {
                 // this checks if there is entry for this day and if there isn't
                 // it returns the reminder message to appear on that entry
-                console.log(entries)
                 if(!entries[timeToString()]){
                     dispatch(addEntry({
                         [timeToString()]: getDailyReminderMessage()
@@ -28,15 +28,13 @@ class History extends Component{
     }
     renderItem = ({today, ...metrics},formattedDate,key) => (
         <View style={styles.day}>
-            {console.log(formattedDate)}
             {today 
                 ? <View>
                     <DateHeader date={formattedDate}/>
                     <Text style={styles.noDataText}>{today}</Text>
                   </View>
                 : <TouchableOpacity>
-                    <DateHeader date={formattedDate}/>
-                    <Text>{JSON.stringify(metrics)}</Text>
+                    <MetricCard date={formattedDate} metrics={metrics}/>
                   </TouchableOpacity>}
         </View>
     )
