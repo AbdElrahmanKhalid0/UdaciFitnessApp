@@ -1,18 +1,41 @@
 import React from 'react';
-import {View,Text,Slider} from 'react-native';
+import {View,Text,Slider,StyleSheet} from 'react-native';
+import { gray, red } from '../utils/colors';
 
 export default function UdaciSlider ({value,onChange,unit,max,step}) {
     return (
-        <View>
+        <View style={styles.sliderContainer}>
             <Slider
+                style={styles.slider}
                 step={step}
                 value={value}
                 maximumValue={max}
                 minimumValue={0}
                 onValueChange={onChange}
             />
-            <Text>{value}</Text>
-            <Text>{unit}</Text>
+            <View style={{marginRight:10}}>
+                <Text style={styles.metric}>{value}</Text>
+                <Text style={styles.unit}>{unit}</Text>
+            </View>
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    sliderContainer:{
+        flex:1,
+        flexDirection:"row"
+    },
+    slider:{
+        flex:1,
+    },
+    metric:{
+        textAlign:'center',
+        fontSize:20,
+    },
+    unit:{
+        textAlign:"center",
+        fontSize:14,
+        color:gray
+    }
+})
