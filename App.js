@@ -11,7 +11,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { purple, gray } from './utils/colors';
+import { purple, gray, white } from './utils/colors';
 
 const Tab = createBottomTabNavigator()
 const Stack = createStackNavigator()
@@ -51,7 +51,16 @@ export default function App() {
         <StatusBar backgroundColor={purple} barStyle='light-content'/>
         <Stack.Navigator>
           <Stack.Screen name='Home' component={TabsNavigatorContainer} options={{headerShown:false}}/>
-          <Stack.Screen name='Entry Details' component={EntryDetails}/>
+          <Stack.Screen 
+            name='Entry Details' 
+            component={EntryDetails}
+            options={{
+              headerStyle:{
+                backgroundColor:purple,
+              },
+              headerTintColor:white,
+            }}
+          />
         </Stack.Navigator>
       </View>
     </Provider>

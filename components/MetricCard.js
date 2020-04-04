@@ -6,7 +6,7 @@ import DateHeader from './DateHeader';
 
 export default function MetricCard ({metrics,date}) {
     return (
-        <View>
+        <View style={{flex:1}}>
             {date && <DateHeader date={date}/>}
             {Object.keys(metrics).map(metric => {
                 const {displayName,unit,getIcon} = getMetricMetaInfo(metric);
