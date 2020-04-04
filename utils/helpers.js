@@ -122,7 +122,7 @@ export function isBetween (num, x, y) {
         }
       },
       eat:{
-        displayName:'food',
+        displayName:'eat',
         max:10,
         unit:'rating',
         step:1,

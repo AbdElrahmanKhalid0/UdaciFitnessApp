@@ -29,7 +29,7 @@ class AddEntry extends Component{
         bike:0,
         swim:0,
         sleep:0,
-        food:0
+        eat:0
     }
     increment = metric => {
         const { step,max } = getMetricMetaInfo(metric);
@@ -78,7 +78,7 @@ class AddEntry extends Component{
             bike:0,
             swim:0,
             sleep:0,
-            food:0
+            eat:0
         })
     }
     reset = () => {
