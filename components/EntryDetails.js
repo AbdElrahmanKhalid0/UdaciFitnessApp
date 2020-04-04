@@ -21,7 +21,6 @@ class EntryDetails extends Component {
     }
     reset = () => {
         const {remove,goHome} = this.props;
-        console.log('herre')
         remove();
         goHome();
         removeEntry(this.props.route.params.id);
@@ -52,8 +51,6 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state,{route}) => {
     const {id} = route.params;
-    console.log('here')
-    console.log(state[id])
     return {
         metrics:state[id],
     }
