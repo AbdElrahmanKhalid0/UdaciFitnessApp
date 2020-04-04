@@ -62,8 +62,10 @@ class AddEntry extends Component{
         const entry = this.state
 
         // ----TODO LIST----
-        // navigate the user to home
         // clear the notification that wants the user to enter the day data
+
+        // navigate the user to home
+        this.props.navigation.goBack();
         
         // save the data to the database(AsyncStorage)
         submitEntry({key,entry});
@@ -83,15 +85,15 @@ class AddEntry extends Component{
     }
     reset = () => {
         const key = timeToString()
-
-        // ----TODO LIST----
+        
         // navigate the user to home
+        this.props.navigation.goBack();
         
         // update the redux store
         this.props.dispatch(addEntry({
             [key]: getDailyReminderMessage()
         }))
-
+        
         // ramove the data from the database
         removeEntry(key);
     }
