@@ -111,7 +111,6 @@ class AddEntry extends Component{
         }
         return (
             <View style={styles.container}>
-                <StatusBar hidden={true}/>
                 <DateHeader date={new Date().toLocaleDateString()}/>
                 {Object.keys(metaInfo).map(key => {
                     const { type,getIcon,...rest } = metaInfo[key];

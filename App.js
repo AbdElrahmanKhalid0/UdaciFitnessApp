@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, StatusBar } from 'react-native';
 import AddEntry from './components/AddEntry';
 import History from './components/History';
 import { Provider } from 'react-redux';
@@ -18,7 +18,7 @@ export default function App() {
     <NavigationContainer>
       <Provider store={createStore(reducer)}>
       <View style={{flex:1}}>
-        <View style={{height:20}}/>
+        <StatusBar backgroundColor={purple} barStyle='light-content'/>
         <Tab.Navigator
           screenOptions={({route}) => ({
             tabBarIcon:({focused,size,color}) => {
