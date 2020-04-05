@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View,Text,ActivityIndicator,StyleSheet,Platform,TouchableOpacity } from 'react-native';
+import { View,Text,ActivityIndicator,StyleSheet,Platform,TouchableOpacity,Animated } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { purple, white } from '../utils/colors';
 import * as Permissions from 'expo-permissions';
@@ -11,6 +11,7 @@ export default class Live extends Component{
         coords:null,
         status:null,
         direction:'',
+        bounceValue: new Animated.Value(1),
     }
     componentDidMount(){
         this.askPermission(); // this asks for the Location permission once the component mounts
@@ -50,6 +51,14 @@ export default class Live extends Component{
             distanceInterval:1, // in meters
         },({coords}) => {
             const newDirection = calculateDirection(coords.heading);
+            const {direction,bounceValue} = this.state;
+
+            if(direction !== newDirection){
+                Animated.sequence([
+                    Animated.timing(bounceValue,{toValue:1.04,duration:200}),
+                    Animated.spring(bounceValue,{toValue:1,friction:4})
+                ]).start()
+            }
 
             this.setState({
                 coords,
@@ -59,7 +68,7 @@ export default class Live extends Component{
         })
     }
     render(){
-        const {coords,status,direction} = this.state;
+        const {coords,status,direction,bounceValue} = this.state;
 
         if(status === null){
             return (
@@ -105,7 +114,7 @@ export default class Live extends Component{
             <View style={styles.container}>
                 <View style={[styles.center,{flex:1}]}>
                     <Text style={styles.headingText}>You're heading</Text>
-                    <Text style={styles.direction}>{direction}</Text>
+                    <Animated.Text style={[styles.direction,{transform:[{scale:bounceValue}]}]}>{direction}</Animated.Text>
                 </View>
                 <View style={[styles.center,styles.footer]}>
                     <View style={styles.subContainer}>
