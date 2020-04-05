@@ -6,7 +6,7 @@ import { purple, white } from '../utils/colors';
 export default class Live extends Component{
     state={
         coords:null,
-        status:'denied',
+        status:'success',
         direction:'',
     }
     askPermission = () => {
@@ -46,17 +46,56 @@ export default class Live extends Component{
         };
 
         return (
-            <View>
-                <Text>Live</Text>
-                <Text>{JSON.stringify(this.state)}</Text>
+            <View style={styles.container}>
+                <View style={[styles.center,{flex:1}]}>
+                    <Text style={styles.headingText}>You're heading</Text>
+                    <Text style={styles.direction}>North</Text>
+                </View>
+                <View style={[styles.center,styles.footer]}>
+                    <View style={styles.subContainer}>
+                        <Text style={[styles.headingText,{color:white}]}>Altitude</Text>
+                        <Text style={styles.metricText}>{200} Feet</Text>
+                    </View>
+                    <View style={styles.subContainer}>
+                        <Text style={[styles.headingText,{color:white}]}>Speed</Text>
+                        <Text style={styles.metricText}>{300} MPH</Text>
+                    </View>
+                </View>
             </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
-    center:{
+    container:{
         flex:1,
+    },
+    subContainer:{
+        flex:1,
+        backgroundColor:'#464280', //lighter that the purble a little bit
+        height:70,
+        justifyContent:'center',
+        alignItems:'center',
+        margin:5,
+    },
+    headingText:{
+        fontSize:25
+    },
+    metricText:{
+        fontSize:18,
+        color:white
+    },
+    footer:{
+        backgroundColor:purple,
+        height:100,
+        flexDirection:"row",
+        padding:15,
+    },
+    direction:{
+        fontSize:60,
+        color:purple
+    },
+    center:{
         justifyContent:'center',
         alignItems:'center',
         padding:15,
