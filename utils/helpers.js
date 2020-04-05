@@ -1,9 +1,12 @@
 import React from 'react';
-import {View,StyleSheet} from 'react-native';
+import {View,StyleSheet, AsyncStorage} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { white,red, orange, blue, lightPurp, pink } from './colors';
+import * as Permissions from 'expo-permissions';
+import { Notifications } from 'expo';
 
+const NOTIFICATION_KEY = 'Udacifitness:notifications';
 
 export function isBetween (num, x, y) {
     if (num >= x && num <= y) {
@@ -160,3 +163,57 @@ const styles = StyleSheet.create({
     margin:10,
   }
 })
+
+export function clearLocalNotification(){
+  return AsyncStorage.removeItem(NOTIFICATION_KEY);
+}
+
+export function setLocalNotification(){
+  AsyncStorage.getItem(NOTIFICATION_KEY)
+    .then(JSON.parse) //this pases the result to the parse method and returns the json data
+    .then(data => {
+      if (data === null){
+        Permissions.askAsync(Permissions.NOTIFICATIONS)
+          .then(({status}) => {
+            if(status === 'granted'){
+              
+              Notifications.cancelAllScheduledNotificationsAsync(); //this is in case the notification was already set
+
+              let tomorrow = new Date();
+              tomorrow.setDate(tomorrow.getDay() + 1) //this sets the date for tomorrow day
+              tomorrow.setHours(20) //this sets the hour for the notification of tomorrow day to 8 P.M
+              tomorrow.setMinutes(0) //this sets the minutes for the notification of tomorrow day to 0
+              tomorrow.setSeconds(0) //this sets the seconds for the notification of tomorrow day to 0
+
+              Notifications.scheduleLocalNotificationAsync(
+                createNotification(),
+                {
+                  time:tomorrow,
+                  repeat:'day'
+                }
+              )
+
+              // this sets the NOTIFICATION_KEY value in the AsyncStorage to true as the notification
+              // schedule has been set
+              AsyncStorage.setItem(NOTIFICATION_KEY,JSON.stringify(true));
+            }
+          })
+      }
+    })
+}
+
+function createNotification(){
+  return {
+    title:'Log on the data!!',
+    body:"👋 Don't forget to log you stats today!",
+    ios:{
+      sound:true,
+    },
+    android:{
+      sound:true,
+      vibrate:true,
+      sticky:false,
+      priority:'high',
+    }
+  }
+}
