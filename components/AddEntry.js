@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, Platform, StatusBar} from 'react-native';
-import { getMetricMetaInfo, timeToString, getDailyReminderMessage } from '../utils/helpers';
+import { getMetricMetaInfo, timeToString, getDailyReminderMessage, clearLocalNotification, setLocalNotification } from '../utils/helpers';
 import UdaciStepper from './UdaciStepper';
 import UdaciSlider from './UdaciSlider';
 import DateHeader from './DateHeader';
@@ -61,8 +61,8 @@ class AddEntry extends Component{
         const key = timeToString()
         const entry = this.state
 
-        // ----TODO LIST----
         // clear the notification that wants the user to enter the day data
+        clearLocalNotification().then(setLocalNotification) //this clears the notification for today and sets another one for tomorrow
 
         // navigate the user to home
         this.props.navigation.goBack();

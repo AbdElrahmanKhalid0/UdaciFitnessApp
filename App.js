@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, StatusBar, Platform } from 'react-native';
 import AddEntry from './components/AddEntry';
 import History from './components/History';
@@ -14,6 +14,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { purple, gray, white } from './utils/colors';
+import { setLocalNotification } from './utils/helpers';
 
 const Tab = createBottomTabNavigator()
 const Stack = createStackNavigator()
@@ -48,6 +49,10 @@ const TabsNavigatorContainer = () => {
 }
 
 export default function App() {
+  useEffect(() => {
+    // when starting the applciation a notification beeing set to 8 PM the next day
+    setLocalNotification();
+  },[]);
   return (
     <NavigationContainer>
       <Provider store={createStore(reducer)}>
