@@ -14,7 +14,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { purple, gray, white } from './utils/colors';
-import { setLocalNotification } from './utils/helpers';
+import { setLocalNotification, setLocalNotificationForToday } from './utils/helpers';
 
 const Tab = createBottomTabNavigator()
 const Stack = createStackNavigator()
@@ -50,8 +50,14 @@ const TabsNavigatorContainer = () => {
 
 export default function App() {
   useEffect(() => {
-    // when starting the applciation a notification beeing set to 8 PM the next day
-    setLocalNotification();
+    today = new Date();
+    // this checks if the time passed 8 PM it will set the reminder notification for tomorrow
+    // other that (the time didn't pass 8 PM) it will set the reminder notification for today
+    if (today.getHours() > 20){
+      setLocalNotification();
+    } else if (today.getHours() < 20){
+      setLocalNotificationForToday();
+    }
   },[]);
   return (
     <NavigationContainer>

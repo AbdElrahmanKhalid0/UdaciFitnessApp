@@ -202,10 +202,43 @@ export function setLocalNotification(){
     })
 }
 
+export function setLocalNotificationForToday(){
+  AsyncStorage.getItem(NOTIFICATION_KEY)
+    .then(JSON.parse) //this pases the result to the parse method and returns the json data
+    .then(data => {
+      if (data === null){
+        Permissions.askAsync(Permissions.NOTIFICATIONS)
+          .then(({status}) => {
+            if(status === 'granted'){
+              
+              Notifications.cancelAllScheduledNotificationsAsync(); //this is in case the notification was already set
+
+              let today = new Date();
+              today.setHours(20) //this sets the hour for the notification of today day to 8 P.M
+              today.setMinutes(0) //this sets the minutes for the notification of today day to 0
+              today.setSeconds(0) //this sets the seconds for the notification of today day to 0
+
+              Notifications.scheduleLocalNotificationAsync(
+                createNotification(),
+                {
+                  time:today,
+                  repeat:'day'
+                }
+              )
+
+              // this sets the NOTIFICATION_KEY value in the AsyncStorage to true as the notification
+              // schedule has been set
+              AsyncStorage.setItem(NOTIFICATION_KEY,JSON.stringify(true));
+            }
+          })
+      }
+    })
+}
+
 function createNotification(){
   return {
     title:'Log on the data!!',
-    body:"👋 Don't forget to log you stats today!",
+    body:"👋 Don't forget to log your stats today!",
     ios:{
       sound:true,
     },
