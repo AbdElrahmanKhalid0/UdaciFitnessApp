@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, StatusBar } from 'react-native';
+import { View, StatusBar, Platform } from 'react-native';
 import AddEntry from './components/AddEntry';
 import History from './components/History';
 import EntryDetails from './components/EntryDetails';
+import Live from './components/Live';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import reducer from './reducers';
@@ -11,6 +12,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import { purple, gray, white } from './utils/colors';
 
 const Tab = createBottomTabNavigator()
@@ -27,7 +29,6 @@ const TabsNavigatorContainer = () => {
               } else if (route.name==='Add Entry') {
                 iconName = focused ? 'pluscircle' : 'pluscircleo';
               };
-
               return route.name==='History' ? <FontAwesome name={iconName} size={size} color={color}/>
                         : <AntDesign name={iconName} size={size} color={color}/>
             }
@@ -39,6 +40,9 @@ const TabsNavigatorContainer = () => {
         >
           <Tab.Screen name='History' component={History}/>
           <Tab.Screen name='Add Entry' component={AddEntry}/>
+          <Tab.Screen name='Live' component={Live} options={{
+            tabBarIcon: ({size,color}) => <Ionicons name={Platform.OS === 'ios' ? 'ios-speedometer' : 'md-speedometer'} size={size} color={color}/>
+          }}/>
     </Tab.Navigator>
   )
 }
