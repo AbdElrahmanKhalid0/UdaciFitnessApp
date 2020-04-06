@@ -236,6 +236,14 @@ export function setLocalNotificationForToday(){
 }
 
 function createNotification(){
+  Notifications.createChannelAndroidAsync('FitnessApp',{
+    name:'Fitness App',
+    description:'this channel is for the Fitness Application reminding notifications',
+    sound:true,
+    vibrate:[0,250,250,500],
+    priority:'high'
+  })
+
   return {
     title:'Log on the data!!',
     body:"👋 Don't forget to log your stats today!",
@@ -243,10 +251,8 @@ function createNotification(){
       sound:true,
     },
     android:{
-      sound:true,
-      vibrate:true,
+      channelId: 'FitnessApp',
       sticky:false,
-      priority:'high',
     }
   }
 }
