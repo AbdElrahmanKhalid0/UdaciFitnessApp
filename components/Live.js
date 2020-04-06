@@ -119,7 +119,7 @@ export default class Live extends Component{
                 <View style={[styles.center,styles.footer]}>
                     <View style={styles.subContainer}>
                         <Text style={[styles.headingText,{color:white}]}>Altitude</Text>
-                        <Text style={styles.metricText}>{coords.altitude} Meters</Text>
+                        <Text style={styles.metricText}>{coords.altitude.toFixed(1)} Meters</Text>
                     </View>
                     <View style={styles.subContainer}>
                         <Text style={[styles.headingText,{color:white}]}>Speed</Text>

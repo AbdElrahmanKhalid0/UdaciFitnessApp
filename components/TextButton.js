@@ -1,5 +1,5 @@
 import React from 'react';
-import {View,TouchableOpacity,Text} from 'react-native';
+import {TouchableOpacity,Text} from 'react-native';
 import { purple } from '../utils/colors';
 
 export default function TextButton({children,onPress,styles={}}){
