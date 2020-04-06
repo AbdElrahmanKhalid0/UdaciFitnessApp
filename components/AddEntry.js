@@ -97,8 +97,15 @@ class AddEntry extends Component{
         // ramove the data from the database
         removeEntry(key);
 
-        // sets the today notification reminder
-        setLocalNotificationForToday()
+        // sets the notification reminder
+        let now = new Date();
+        // this checks if the time passed 8 PM it will set the reminder notification for tomorrow
+        // other that (the time didn't pass 8 PM) it will set the reminder notification for today
+        if (now.getHours() > 20){
+            setLocalNotification();
+        } else if (now.getHours() < 20){
+            setLocalNotificationForToday();
+        }   
     }
     render(){
         const metaInfo = getMetricMetaInfo();

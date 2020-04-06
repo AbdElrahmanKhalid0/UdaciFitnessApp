@@ -180,10 +180,11 @@ export function setLocalNotification(){
               Notifications.cancelAllScheduledNotificationsAsync(); //this is in case the notification was already set
 
               let tomorrow = new Date();
-              tomorrow.setDate(tomorrow.getDay() + 1) //this sets the date for tomorrow day
-              tomorrow.setHours(20) //this sets the hour for the notification of tomorrow day to 8 P.M
-              tomorrow.setMinutes(0) //this sets the minutes for the notification of tomorrow day to 0
-              tomorrow.setSeconds(0) //this sets the seconds for the notification of tomorrow day to 0
+              // in the previous I used getDay() instead of getDate() and the deference that the first one
+              // returns the day index of the current week so sunday will be 0, monday will be 1, and like that
+              // but the second one returns as expected the current day of the current month.
+              tomorrow.setDate(tomorrow.getDate() + 1) //this sets the date for tomorrow day
+              tomorrow.setHours(20,0,0) //this sets the time for the notification of tomorrow day to 8 P.M
 
               Notifications.scheduleLocalNotificationAsync(
                 createNotification(),
@@ -214,9 +215,7 @@ export function setLocalNotificationForToday(){
               Notifications.cancelAllScheduledNotificationsAsync(); //this is in case the notification was already set
 
               let today = new Date();
-              today.setHours(20) //this sets the hour for the notification of today day to 8 P.M
-              today.setMinutes(0) //this sets the minutes for the notification of today day to 0
-              today.setSeconds(0) //this sets the seconds for the notification of today day to 0
+              today.setHours(20,0,0) //this sets the time for the notification of today day to 8 P.M
 
               Notifications.scheduleLocalNotificationAsync(
                 createNotification(),

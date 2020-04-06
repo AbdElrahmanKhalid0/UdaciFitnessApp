@@ -50,12 +50,12 @@ const TabsNavigatorContainer = () => {
 
 export default function App() {
   useEffect(() => {
-    today = new Date();
+    let now = new Date();
     // this checks if the time passed 8 PM it will set the reminder notification for tomorrow
     // other that (the time didn't pass 8 PM) it will set the reminder notification for today
-    if (today.getHours() > 20){
+    if (now.getHours() > 20){
       setLocalNotification();
-    } else if (today.getHours() < 20){
+    } else if (now.getHours() < 20){
       setLocalNotificationForToday();
     }
   },[]);
