@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "Blank Template",
-    "slug": "first-app",
+    "name": "FitnessApp",
+    "description":"this is 3k17's version of the fitness application, enjoy humans!!",
+    "slug": "fitnessapp",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": [
@@ -11,7 +12,10 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/fast.png",
+    "notification": {
+      "icon": "./assets/fast.png",
+    },
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -24,7 +28,10 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
-    }
+      "bundleIdentifier": "org.fitnessapp.exp"
+    },
+    "android": {
+      "package": "org.fitnessapp.exp"
+     }
   }
 }
